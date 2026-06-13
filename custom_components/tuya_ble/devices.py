@@ -103,7 +103,9 @@ class TuyaBLEEntity(CoordinatorEntity):
         self._attr_device_info = get_device_info(self._device)
         self._attr_unique_id = f"{self._device.device_id}-{description.key}"
         self.entity_id = generate_entity_id(
-            "sensor.{}", self._attr_unique_id, hass=hass
+            getattr(self, "ENTITY_ID_FORMAT", "sensor.{}"),
+            self._attr_unique_id,
+            hass=hass,
         )
 
     @property
